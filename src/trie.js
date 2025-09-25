@@ -169,11 +169,7 @@ class Trie {
   }
 
   /**
-   * For each is really 'for each word'.
-   * This function is 'for each prefix'.
-   * An example of why you might want this is 
-   * to visualise the tree with multi character 
-   * prefixes compressed together into a single node.
+   * Traverse the tree and pass prefixes and words to separate callbacksFor each is really 'for each word'.
    * @public
    * @param {function} prefixCb
    * @param {function} wordCb
@@ -186,16 +182,17 @@ class Trie {
       throw new Error('Trie.forEach expects a word callback function');
     }
 
-    const forEachRecursive = (node = this._root, word = '') => {
-      if (node.children().size === 1) { // TODO test this out tomorrow when you're not basically asleep
-        prefixCb(word);
+    const forEachRecursive = (node = this._root, prefix = '', word = '') => {
+      if (node.children().size > 1) {
+        prefixCb(prefix);
+        prefix = '';
       }
       if (node.isEndOfWord()) {
         wordCb(word);
       }
 
       node.children().forEach((child) => {
-        forEachRecursive(child, word + child.getChar());
+        forEachRecursive(child, prefix + child.getChar(), word + child.getChar());
       });
     };
 

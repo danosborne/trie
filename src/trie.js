@@ -169,7 +169,7 @@ class Trie {
   }
 
   /**
-   * Traverse the tree and pass prefixes and words to separate callbacksFor each is really 'for each word'.
+   * Traverse the tree and pass prefixes and words to separate callbacks
    * @public
    * @param {function} prefixCb
    * @param {function} wordCb
